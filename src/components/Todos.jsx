@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { toggleTodoStatus } from "../redux/todos/todos-slice";
 
 import TodosForm from "./TodosForm";
 import TodoList from "./TodoList";
@@ -24,6 +25,7 @@ const Todos = () => {
 		return Boolean(dublicate);
 	};
 
+	// const maxlenght = 10;
 	const onAddTodo = (data) => {
 		if (isDublicate(data)) {
 			return alert(`Task with ${data.text}  already in list`);
@@ -37,29 +39,20 @@ const Todos = () => {
 		dispatch(deleteTodo(id));
 	};
 
+	const handleToggleTodo = (id) => {
+		dispatch(toggleTodoStatus(id));
+	};
 	const changeFitler = ({ target }) => dispatch(setFilter(target.value));
 
-	const elements = todos.map((id, text) => {
-		<li key={id}>
-			<p>{text}</p>
-			<button onClick={() => deleteTodo(id)} type="button">
-				Delete
-			</button>
-		</li>;
-	});
 	return (
-		<div>
+		<>
 			<TodosForm onSubmit={onAddTodo} />
-			<div>
-				{/* <input
-					name="filter"
-					onChange={changeFitler}
-					placeholder="Enter your task"
-				/> */}
-				{elements}
-				<TodoList items={todos} deleteTodo={onDeleteTodo} />
-			</div>
-		</div>
+			<TodoList
+				items={todos}
+				deleteTodo={onDeleteTodo}
+				toggleTodo={handleToggleTodo}
+			/>
+		</>
 	);
 };
 

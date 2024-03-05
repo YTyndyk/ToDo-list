@@ -19,9 +19,16 @@ const TodosForm = ({ onSubmit }) => {
 		});
 	};
 
+	const { text } = state;
+	const maxlength = text.length > 1 && text.length <= 30;
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		onSubmit({ ...state });
+		if (maxlength) {
+			onSubmit({ ...state });
+		} else {
+			alert(`The text should be 30 characters or less.`);
+		}
 		setState({ ...INITIAL_STATE });
 		reset();
 	};
@@ -31,9 +38,6 @@ const TodosForm = ({ onSubmit }) => {
 	};
 
 	const todoTextId = nanoid();
-	const todoCompletedId = nanoid();
-
-	const { text, completed } = state;
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -48,15 +52,6 @@ const TodosForm = ({ onSubmit }) => {
 				/>
 			</div>
 
-			<div>
-				<input
-					type="checkbox"
-					checked={completed}
-					name="completed"
-					onChange={handleChange}
-					id={todoCompletedId}
-				/>
-			</div>
 			<button type="submit">Add task</button>
 		</form>
 	);
