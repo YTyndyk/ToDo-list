@@ -6,12 +6,18 @@ const TodoList = ({ items, deleteTodo, toggleTodo }) => {
 	};
 	const elements = items.map(({ id, text, completed }) => (
 		<li key={id}>
-			<input
+			{/* <input
 				type="checkbox"
 				checked={completed}
 				onChange={() => handleToggle(id)}
-			/>
-			<p style={{ textDecoration: completed ? "line-through" : "none" }}>
+			/> */}
+			{/* <p style={{ textDecoration: completed ? "line-through" : "none" }}>
+				{text}
+			</p> */}
+			<p
+				onClick={() => handleToggle(id)}
+				style={{ textDecoration: completed ? "line-through" : "none" }}
+			>
 				{text}
 			</p>
 			<button onClick={() => deleteTodo(id)} type="button">

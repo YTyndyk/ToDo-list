@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { toggleTodoStatus } from "../redux/todos/todos-slice";
+import { FilterTypes } from "../redux/filter/filter-constants";
+import { setFilter } from "../redux/filter/filter-slice";
 
 import TodosForm from "./TodosForm";
 import TodoList from "./TodoList";
 
 import { addTodo, deleteTodo } from "../redux/todos/todos-slice";
-import { setFilter } from "../redux/filter/filter-slice";
 import { getAllTodos, getFilteredTodos } from "../redux/todos/todos-selectors";
 
 const Todos = () => {
@@ -25,7 +26,6 @@ const Todos = () => {
 		return Boolean(dublicate);
 	};
 
-	// const maxlenght = 10;
 	const onAddTodo = (data) => {
 		if (isDublicate(data)) {
 			return alert(`Task with ${data.text}  already in list`);
@@ -42,11 +42,20 @@ const Todos = () => {
 	const handleToggleTodo = (id) => {
 		dispatch(toggleTodoStatus(id));
 	};
-	const changeFitler = ({ target }) => dispatch(setFilter(target.value));
+	const changeFitler = (filterType) => dispatch(setFilter(filterType));
 
 	return (
 		<>
 			<TodosForm onSubmit={onAddTodo} />
+			<div>
+				<button onClick={() => changeFitler(FilterTypes.ALL)}>All</button>
+				<button onClick={() => changeFitler(FilterTypes.COMPLETED)}>
+					Completed
+				</button>
+				<button onClick={() => changeFitler(FilterTypes.CURRENT)}>
+					Current
+				</button>
+			</div>
 			<TodoList
 				items={todos}
 				deleteTodo={onDeleteTodo}
