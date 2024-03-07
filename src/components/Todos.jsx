@@ -4,7 +4,7 @@ import { FilterTypes } from "../redux/filter/filter-constants";
 import { useState } from "react";
 
 import TodosForm from "./TodosForm";
-import TodoList from "./TodoList";
+import TodoList from "./TodoList/TodoList";
 
 import { addTodo, deleteTodo } from "../redux/todos/todos-slice";
 import {
@@ -53,6 +53,7 @@ const Todos = () => {
 
 	return (
 		<>
+			<h1>ToDo list</h1>
 			<TodosForm onSubmit={onAddTodo} />
 			<Buttons handleFilterChange={handleFilterChange} />
 			<TodoList

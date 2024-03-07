@@ -1,0 +1,25 @@
+.box {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+.close {
+	margin: 0;
+	color: rgb(255, 0, 0);
+	cursor: pointer;
+	font-weight: bolder;
+	background-color: transparent;
+}
+.close:hover {
+	color: rgb(98, 15, 0);
+}
+.text {
+	color: #021f9e;
+}
+.space {
+	gap: 1rem;
+	max-width: 100%;
+	width: 500px;
+	padding: 1rem;
+	margin: 2rem auto;
+}

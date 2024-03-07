@@ -6,11 +6,11 @@ const Buttons = ({ handleFilterChange }) => {
 	const todos = useSelector(getAllTodos);
 
 	const completedTodos = todos.reduce(
-		(total, todo) => (todo.completed ? total + 1 : total),
+		(acc, todo) => (todo.completed ? acc + 1 : acc),
 		0,
 	);
 	const unCompletedTodos = todos.reduce(
-		(total, todo) => (!todo.completed ? total + 1 : total),
+		(acc, todo) => (!todo.completed ? acc + 1 : acc),
 		0,
 	);
 
