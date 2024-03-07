@@ -10,12 +10,11 @@ const TodosForm = ({ onSubmit }) => {
 	const [state, setState] = useState({ ...INITIAL_STATE });
 
 	const handleChange = ({ target }) => {
-		const { name, value, type, checked } = target;
-		const newValue = type === "checkbox" ? checked : value;
+		const { name, value } = target;
 
 		setState({
 			...state,
-			[name]: newValue,
+			[name]: value,
 		});
 	};
 

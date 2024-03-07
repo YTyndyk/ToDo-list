@@ -12,10 +12,10 @@ import {
 	getIncompletedTodos,
 	getCompletedTodos,
 } from "../redux/todos/todos-selectors";
+import Buttons from "./Buttons";
 
 const Todos = () => {
 	const [currentFilter, setCurrentFilter] = useState(FilterTypes.ALL);
-	const todos = useSelector(getAllTodos);
 
 	const dispatch = useDispatch();
 
@@ -31,30 +31,14 @@ const Todos = () => {
 		case FilterTypes.COMPLETED:
 			filteredTodos = useSelector(getCompletedTodos);
 			break;
-		case FilterTypes.INCOMPLETED:
+		case FilterTypes.CURRENT:
 			filteredTodos = useSelector(getIncompletedTodos);
 			break;
 		default:
 			filteredTodos = useSelector(getAllTodos);
 	}
 
-	const isDublicate = ({ text }) => {
-		const normalizedText = text.toLowerCase();
-
-		const dublicate = todos.find((item) => {
-			const normalizedCurrentText = item.text.toLowerCase();
-
-			return normalizedCurrentText === normalizedText;
-		});
-
-		return Boolean(dublicate);
-	};
-
 	const onAddTodo = (data) => {
-		if (isDublicate(data)) {
-			return alert(`Task with ${data.text}  already in list`);
-		}
-
 		const action = addTodo(data);
 		dispatch(action);
 	};
@@ -70,20 +54,13 @@ const Todos = () => {
 	return (
 		<>
 			<TodosForm onSubmit={onAddTodo} />
-			<div>
-				<button onClick={() => handleFilterChange(FilterTypes.ALL)}>All</button>
-				<button onClick={() => handleFilterChange(FilterTypes.COMPLETED)}>
-					Completed
-				</button>
-				<button onClick={() => handleFilterChange(FilterTypes.INCOMPLETED)}>
-					Incompleted
-				</button>
-			</div>
+			<Buttons handleFilterChange={handleFilterChange} />
 			<TodoList
 				items={filteredTodos}
 				deleteTodo={onDeleteTodo}
 				toggleTodo={handleToggleTodo}
 			/>
+			<p></p>
 		</>
 	);
 };
